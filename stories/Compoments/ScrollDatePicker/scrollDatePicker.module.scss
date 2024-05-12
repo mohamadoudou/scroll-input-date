@@ -1,0 +1,143 @@
+// variables
+$text-color-secondary: rgba(26, 23, 23, 0.267);
+$white: #f8f7f7;
+
+.scrollDatePicker {
+  all: initial; /* blocking inheritance for all properties */
+}
+
+.scrollDatePicker::before,
+.scrollDatePicker::after,
+.scrollDatePicker *::before,
+.scrollDatePicker *::after {
+  all: unset; /* allowing inheritance within scrollDatePicker */
+}
+
+.scrollDatePicker {
+  all: unset; /* allowing inheritance within scrollDatePicker */
+
+  .popup {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem;
+    z-index: -1;
+    overflow: hidden;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 84px;
+      pointer-events: none;
+    }
+    &:before {
+      overflow: hidden;
+      top: 0px;
+      background: linear-gradient(white, rgba(white, 0.7));
+    }
+    &:after {
+      overflow: hidden;
+      bottom: 0px;
+      background: linear-gradient(rgba(white, 0.7), white);
+    }
+
+    @media (hover: hover) {
+      &:before,
+      &:after {
+        display: none;
+      }
+    }
+
+    .popupSection {
+      width: 100%;
+    }
+
+    .monthList {
+      flex: 1;
+    }
+
+    .dayList {
+      flex: 0.5;
+    }
+
+    .yearList {
+      flex: 0.75;
+    }
+
+    .popupList {
+      list-style: none;
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      padding: 0;
+      margin: 0;
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+
+      @media (hover: hover) {
+        &::-webkit-scrollbar {
+          display: inherit;
+        }
+        -ms-overflow-style: inherit;
+        scrollbar-width: thin;
+        overscroll-behavior: contain;
+        overflow-y: hidden;
+
+        &:hover {
+          overflow-y: scroll;
+        }
+      }
+
+      .listItem {
+        display: flex;
+        align-items: center;
+        padding: 0;
+        scroll-snap-align: center;
+        width: 100%;
+
+        .listItemBtn {
+          border: 0;
+          height: 100%;
+          width: 100%;
+          background: transparent;
+          text-align: center;
+          padding: 0 0.5rem;
+
+          @media (hover: hover) {
+            text-align: start;
+            &:hover {
+              background-color: $text-color-secondary;
+              color: $white;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .viewportMask {
+      display: none;
+      @media (hover: hover) {
+        display: block;
+        position: absolute;
+        width: 97%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $text-color-secondary;
+        border-radius: 5px;
+        opacity: 0.2;
+        z-index: -1;
+      }
+    }
+  }
+}
